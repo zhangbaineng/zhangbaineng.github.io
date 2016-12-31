@@ -1,0 +1,225 @@
+.box1{
+    /*border: 1px solid red;*/
+    transform-style: preserve-3d;
+
+}
+@keyframes rotate3D {
+
+    /*rotate3D(x,y,z,angle)  表示绕着平面中任意一条轴旋转，这条轴 就是 点(x,y,z)和原点(0,0,0)的连线。angle 表示一次性旋转的角度*/
+    100%{transform: rotate3D(1,1,1,360deg)}
+}
+
+.box2{
+    animation: rotate3D 2s infinite linear;
+}
+.box3{
+    /*border: 1px solid red;*/
+    perspective: 600px;
+
+}
+@keyframes scale {
+
+    /*缩放只有 水平和竖直方向(x和y方向)  没有X轴方向上的缩放，因为平面元素不存在厚度*/
+    100%{transform: scaleX(0.5) scaleY(0.5) scaleZ(0.5)}
+}
+.box4{
+    animation: scale 2s infinite linear;
+}
+@keyframes rotate {
+    100%{transform: rotate(360deg)}
+}
+@keyframes topMove {
+    100%{transform: translate(40px,-200px)}
+}
+@keyframes downMove {
+    100%{transform: translate(40px,200px)}
+}
+
+.bottom-div{
+    /*基础样式设计*/
+    width: 160px;
+    height: 160px;
+    background-color: yellow;
+    margin: 200px auto;
+
+    animation: rotate 4s infinite linear;
+}
+
+/*用伪元素选择器 创建子元素*/
+.bottom-div::before{
+    display: block;
+    content: '';
+    width: 80px;
+    height: 80px;
+    background-color: red;
+    border-radius: 50%;
+    transform: translate(40px,-80px);
+
+    animation: topMove 1s infinite linear alternate;
+}
+
+.bottom-div::after{
+    display: block;
+    content: '';
+    width: 80px;
+    height: 80px;
+    background-color: blue;
+    border-radius: 50%;
+    transform: translate(40px,80px);
+
+    animation: downMove 1s infinite linear alternate;
+}
+.wrap .bottom-div{
+    width: 200px;
+    height: 200px;
+    background-color: red;
+    /*利用定位把每个面先叠加到一起*/
+    position: absolute;
+    top: 40%;
+    left: 40%;
+
+    /*字体设置*/
+    font-size: 100px;
+    text-align: center;
+    line-height: 200px;
+    color: white;
+    text-shadow: 0 0 10px green;
+}
+
+/*02 确定 对每个面的位置*/
+/*旋转法则：旋转角度为正数的时候符合 左手螺旋法则*/
+/*大拇指指向旋转轴的正方向，四指指向的方向就是旋转的方向*/
+/*顶部*/
+
+.wrap div{
+    width: 200px;
+    height: 200px;
+    background-color: red;
+    /*利用定位把每个面先叠加到一起*/
+    position: absolute;
+    top: 40%;
+    left: 40%;
+
+    /*字体设置*/
+    font-size: 100px;
+    text-align: center;
+    line-height: 200px;
+    color: white;
+    text-shadow: 0 0 10px green;
+}
+
+/*02 确定 对每个面的位置*/
+/*旋转法则：旋转角度为正数的时候符合 左手螺旋法则*/
+/*大拇指指向旋转轴的正方向，四指指向的方向就是旋转的方向*/
+/*顶部*/
+.wrap div{
+    width: 200px;
+    height: 200px;
+    background-color: red;
+    /*利用定位把每个面先叠加到一起*/
+    position: absolute;
+    top: 40%;
+    left: 40%;
+
+    /*字体设置*/
+    font-size: 100px;
+    text-align: center;
+    line-height: 200px;
+    color: white;
+    text-shadow: 0 0 10px green;
+}
+
+/*02 确定 对每个面的位置*/
+/*旋转法则：旋转角度为正数的时候符合 左手螺旋法则*/
+/*大拇指指向旋转轴的正方向，四指指向的方向就是旋转的方向*/
+/*顶部*/
+.wrap .box6:nth-child(1){
+    background-color: orange;
+    transform-origin: top;
+    transform: rotateX(90deg);
+}
+
+/*底部*/
+.box6:nth-child(2){
+    background-color: yellow;
+    transform-origin: bottom;
+    transform: rotateX(270deg);
+}
+
+/*左边*/
+.box6:nth-child(3){
+    background-color: green;
+    transform-origin: left;
+    transform: rotateY(270deg);
+}
+
+/*右边*/
+.box6:nth-child(4){
+    background-color: blue;
+    transform-origin: right;
+    transform: rotateY(90deg);
+}
+
+/*里面*/
+.box6:nth-child(5){
+
+}
+
+/*外面*/
+.box6:nth-child(6){
+    background-color: purple;
+    transform: translateZ(200px);
+}
+
+/*到这里 立方体 绘制完毕*/
+
+/*开启3D效果*/
+.wrap{
+    margin: 200px;
+    transform-style: preserve-3d;
+
+    transition: transform 20s;
+}
+
+.wrap:hover{
+    transform: rotateX(2000deg) rotateY(2000deg) rotateZ(2000deg) translate(100px,100px);
+}
+
+
+.stage{
+    perspective: 2000px;
+}
+.contains{
+    margin: 100px 500px;
+
+    /*width: 400px;*/
+    /*设置 contains 的高度 会影响消失点的位置，从而影响观测点的位置*/
+    height: 200px;
+    background-color: yellow;
+
+    /*开启3D效果*/
+    transform-style: preserve-3d;
+    /*transform: rotateX(-10deg);*/
+
+    /*执行动画*/
+    animation: rotate3D 12s infinite;
+}
+img{
+    position: absolute;
+    width: 400px;
+}
+
+/*制作关键帧*/
+@keyframes rotate3D {
+    /*0 60 120 180 240 300 360*/
+    0%{transform: rotateY(0deg)}
+    16.7%{transform: rotateY(60deg)}
+    33.3%{transform: rotateY(120deg)}
+    50%{transform: rotateY(180deg)}
+    66.7%{transform: rotateY(240deg)}
+    83.3%{transform: rotateY(300deg)}
+    100%{transform: rotateY(360deg)}
+}
+
+
+

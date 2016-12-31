@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>时钟</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .clock{
+            width: 600px;
+            height: 600px;
+            background: url("images/clock.jpg") no-repeat;
+            margin: 50px auto;
+            position: relative;
+        }
+        .clock div{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .h{
+            background: url("images/hour.png") no-repeat center;
+        }
+        .m{
+            background: url("images/minute.png") no-repeat center;
+        }
+        .s{
+            background: url("images/second.png") no-repeat center;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var hour = document.getElementById("hour");
+            var minute = document.getElementById("minute");
+            var second = document.getElementById("second");
+
+            // 谷歌和safiri 用webkit前缀  火狐 用Moz  IE 用Ms   opera 用 O
+            var h = 0, m = 0, s = 0, ms = 0;
+            setInterval(function () {
+
+                // 获得当前的秒数  分数  时数
+                var date = new Date();
+                ms = date.getMilliseconds();
+                s = date.getSeconds() + ms / 1000;
+                m = date.getMinutes() + s / 60;
+                h = date.getHours() % 12 + m / 60;
+
+                second.style.webkitTransform = "rotate("+ 6*s +"deg)";
+                minute.style.webkitTransform = "rotate("+ 6*m +"deg)";
+                hour.style.webkitTransform = "rotate("+ 30*h +"deg)";
+
+//                console.log(h +":"+ m + ":" + s);
+            }, 100)
+
+        }
+    </script>
+</head>
+<body>
+<div class="row">
+
+    <div class="container" style="margin-top: 20px;">
+        <ul class="nav nav-pills" role="tablist">
+            <li role="presentation" class="active"><a href="#">zahngbaineng</a></li>
+            <li role="presentation"><a href="grwz.html">个人网站</a></li>
+            <li role="presentation"><a href="lxsc/index.html">联想商城</a></li>
+            <li role="presentation"><a href="3Dfk.html">3D方块</a></li>
+            <li role="presentation"><a href="3Dxp.html">3D相片</a></li>
+            <li role="presentation"><a href="sj.html">时钟</a></li>
+            <li role="presentation"><a href="#">Messages</a></li>
+        </ul>
+
+    </div>
+
+    <div class="col-lg-12">
+        <div class="col-lg-3" style="background-color:wheat;"></div>
+        <div class="col-lg-6" style="background-color:hotpink;"></div>
+        <div class="col-lg-3" style="background-color:chartreuse;"></div>
+    </div>
+<div class="clock">
+    <div class="h" id="hour"></div>
+    <div class="m" id="minute"></div>
+    <div class="s" id="second"></div>
+</div>
+    </div>
+<script src="jquery-3.1.1.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bootstrap.min.js"></script>
+</body>
+</html>

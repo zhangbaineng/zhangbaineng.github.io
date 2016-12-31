@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="bootstrap.min.css" rel="stylesheet">
+        <style>
+            /*设计思路*/
+            /*因为如果单独考虑球的 运动轨迹既有旋转又有平移 可能还要涉及到坐标计算，比较麻烦。所以我们这里不如把 动画拆成2部分，一部分旋转 还有一部分平移
+            01 旋转我们不妨把两个子元素放到一个父元素上，这样只要转动父元素，子元素也能跟着旋转
+            02 子元素自身只需要做 平移变换
+            */
+
+            /*制作关键帧*/
+        @keyframes rotate {
+            100%{transform: rotate(360deg)}
+        }
+        @keyframes topMove {
+            100%{transform: translate(40px,-200px)}
+        }
+        @keyframes downMove {
+            100%{transform: translate(40px,200px)}
+        }
+
+        .bottom-div{
+            /*基础样式设计*/
+            width: 160px;
+            height: 160px;
+            background-color: yellow;
+            margin: 200px auto;
+
+            animation: rotate 4s infinite linear;
+        }
+
+        /*用伪元素选择器 创建子元素*/
+        .bottom-div::before{
+            display: block;
+            content: '';
+            width: 80px;
+            height: 80px;
+            background-color: red;
+            border-radius: 50%;
+            transform: translate(40px,-80px);
+
+            animation: topMove 1s infinite linear alternate;
+        }
+
+        .bottom-div::after{
+            display: block;
+            content: '';
+            width: 80px;
+            height: 80px;
+            background-color: blue;
+            border-radius: 50%;
+            transform: translate(40px,80px);
+
+            animation: downMove 1s infinite linear alternate;
+        }
+
+            /*3d方块*/
+            /*绘制立方体的原理*/
+            /*01 立方体有6个面
+              02 可以把六个面放到对应位置，以实现立方体绘制。如何放 就利用旋转平移*/
+
+            /*01 通用属性设置*/
+            .wrap .box{
+                width: 200px;
+                height: 200px;
+                background-color: red;
+                /*利用定位把每个面先叠加到一起*/
+                position: absolute;
+                top: 40%;
+                left: 40%;
+
+                /*字体设置*/
+                font-size: 100px;
+                text-align: center;
+                line-height: 200px;
+                color: white;
+                text-shadow: 0 0 10px green;
+            }
+
+            /*02 确定 对每个面的位置*/
+            /*旋转法则：旋转角度为正数的时候符合 左手螺旋法则*/
+            /*大拇指指向旋转轴的正方向，四指指向的方向就是旋转的方向*/
+            /*顶部*/
+            .wrap .box:nth-child(1){
+                background-color: orange;
+                transform-origin: top;
+                transform: rotateX(90deg);
+            }
+
+            /*底部*/
+            .box:nth-child(2){
+                background-color: yellow;
+                transform-origin: bottom;
+                transform: rotateX(270deg);
+            }
+
+            /*左边*/
+            .box:nth-child(3){
+                background-color: green;
+                transform-origin: left;
+                transform: rotateY(270deg);
+            }
+
+
+            /*右边*/
+            .box:nth-child(4){
+                background-color: blue;
+                transform-origin: right;
+                transform: rotateY(90deg);
+            }
+
+            /*里面*/
+            .box:nth-child(5){
+
+            }
+
+            /*外面*/
+            .box:nth-child(6){
+                background-color: purple;
+                transform: translateZ(200px);
+            }
+
+            /*到这里 立方体 绘制完毕*/
+
+            /*开启3D效果*/
+            .wrap{
+                margin: 200px;
+                transform-style: preserve-3d;
+
+                transition: transform 20s;
+            }
+
+            .wrap:hover{
+                transform: rotateX(2000deg) rotateY(2000deg) rotateZ(2000deg) translate(100px,100px);
+            }
+
+
+        </style>
+
+
+</head>
+<body style="background: rgba(0, 0, 0, 0.9);">
+<div class="row">
+
+    <div class="container" style="margin-top: 20px;">
+        <ul class="nav nav-pills" role="tablist">
+            <li role="presentation" class="active"><a href="#">zahngbaineng</a></li>
+            <li role="presentation"><a href="grwz.html">个人网站</a></li>
+            <li role="presentation"><a href="lxsc/index.html">联想商城</a></li>
+            <li role="presentation"><a href="3Dfk.html">3D方块</a></li>
+            <li role="presentation"><a href="3Dxp.html">3D相片</a></li>
+            <li role="presentation"><a href="sj.html">时钟</a></li>
+            <li role="presentation"><a href="#">Messages</a></li>
+
+        </ul>
+
+    </div>
+
+    <div class="col-lg-12">
+        <div class="col-lg-3" style="background-color:wheat;"></div>
+        <div class="col-lg-6" style="background-color:hotpink;"></div>
+        <div class="col-lg-3" style="background-color:chartreuse;"></div>
+    </div>
+    <div class="col-lg-12">
+        <div class="col-lg-2" style="margin-top: 30px;">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-success">绘制立方体的原理</li>
+                <li class="list-group-item list-group-item-info">立方体有6个面</li>
+                <li class="list-group-item list-group-item-warning">可以把六个面放到对应位置，以实现立方体绘制。如何放 就利用旋转平移></li>
+                <li class="list-group-item list-group-item-danger">旋转法则：旋转角度为正数的时候符合 左手螺旋法则</li>
+                <li class="list-group-item list-group-item-success">大拇指指向旋转轴的正方向，四指指向的方向就是旋转的方向</li>
+
+            </ul>
+        </div>
+        <div class="col-lg-7">
+            <div class="wrap">
+                <div class="box">1</div>
+                <div class="box">2</div>
+                <div class="box">3</div>
+                <div class="box">4</div>
+                <div class="box">5</div>
+                <div class="box">6</div>
+            </div>
+        </div>
+        <div class="col-lg-3" style="margin-top: 30px;">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-success">设计思路</li>
+                <li class="list-group-item list-group-item-info">因为如果单独考虑球的 运动轨迹既有旋转又有平移 可能还要涉及到坐标计算，比较麻烦。所以我们这里不如把 动画拆成2部分，一部分旋转 还有一部分平移</li>
+                <li class="list-group-item list-group-item-warning">旋转我们不妨把两个子元素放到一个父元素上，这样只要转动父元素，子元素也能跟着旋转</li>
+                <li class="list-group-item list-group-item-danger">子元素自身只需要做 平移变换</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-lg-12" style="margin-top: 100px;">
+        <div class="col-lg-5">
+            <div class="bottom-div"></div>
+
+        </div>
+        <div class="col-lg-2"></div>
+        <div class="col-lg-5">
+            <div class="bottom-div"></div>
+
+        </div>
+    </div>
+
+
+
+
+
+    </div>
+<script src="jquery-3.1.1.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bootstrap.min.js"></script>
+
+</body>
+</html>

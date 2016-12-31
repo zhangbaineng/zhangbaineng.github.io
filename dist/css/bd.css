@@ -1,0 +1,16 @@
+.box1{
+    margin: 0 auto;
+    /*border: 1px solid red;*/
+    margin-top: 50px;
+    /*margin-right: -300px;*/
+    transform-style: preserve-3d;
+
+}
+@keyframes rotate3D {
+
+    /*rotate3D(x,y,z,angle)  表示绕着平面中任意一条轴旋转，这条轴 就是 点(x,y,z)和原点(0,0,0)的连线。angle 表示一次性旋转的角度*/
+    100%{transform: rotate3D(1,1,1,120deg)}
+}
+.box2{
+    animation: rotate3D 3s infinite linear;
+}
